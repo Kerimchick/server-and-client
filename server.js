@@ -4,6 +4,7 @@ const mongoose = require("mongoose")
 require("dotenv").config()
 const server = express()
 const authRouter = require("./routers/auth")
+const newsRouter = require("./routers/news")
 
 mongoose.connect(process.env.MONGO_LINK)
     .then(() => console.log("DB IS CONNECTED"))
@@ -12,6 +13,7 @@ mongoose.connect(process.env.MONGO_LINK)
 server.use(cors())
 server.use(express.json())
 server.use("/api/v1", authRouter)
+server.use("/api/v1/news", newsRouter)
 
 server.listen(process.env.PORT || 8080, () => {
     console.log("Server is started")
