@@ -5,7 +5,10 @@ const userSchema = new mongoose.Schema({
     name : {type: String, required: true, max : 26, trim: true},
     email: {type: String, required: true, trim: true, unique: true, lowercase: true},
     password: {type: String, required: true, max: 26, trim: true},
-    role: {type: String, default: "user"}
+    role: {type: String, default: "user"},
+    news: [{
+        type: mongoose.Schema.Types.ObjectId, ref: "news"
+    }]
 }, {timestamps : true})
 
 userSchema.pre("save", async function ( next ){

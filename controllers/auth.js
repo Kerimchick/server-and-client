@@ -33,7 +33,6 @@ const signin = (req, res) => {
             user : {_id: user._id, email: user.email, role: user.role, name : user.name}
         })
     })
-
 }
 
 const isAuthenticate = async (req, res) => {
@@ -50,4 +49,12 @@ const isAuthenticate = async (req, res) => {
     }
 }
 
-module.exports = {signup, signin, isAuthenticate}
+const getUserInfo = async (req, res) => {
+    try{
+        const user = await Users.findById(req.params.id).populate("news", "-password")
+        res.json(user)
+    } catch (e) {
+        res.status(400).json({message: "Invalid user"})
+    }
+}
+module.exports = {signup, signin, isAuthenticate, getUserInfo}
